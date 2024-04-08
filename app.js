@@ -15,6 +15,10 @@
 let number = Math.trunc(Math.random() * 20) + 1;
 let score = 20;
 let highScore = 0;
+
+const displayMessage = function(message){
+  document.querySelector('.message').textContent = message;
+}
 // document.querySelector('.number').textContent=number;
 
 document.querySelector('.check').addEventListener('click', function () {
@@ -23,33 +27,46 @@ document.querySelector('.check').addEventListener('click', function () {
 
   // when there is no input:
   if (guess === 0) {
-    document.querySelector('.message').textContent = '🚫 No Number!';
-  } else if (guess < number) {
+    displayMessage('🚫 No Number!')
+  }
+   else if(guess !== number){
     if (score > 1) {
-      document.querySelector('.message').textContent = '📉 TOO LOW !';
+      displayMessage(guess > number ? '📈 Too high!' : '📉 Too low!');
       score--;
       document.querySelector('.score').textContent = `${score}`;
     } else {
-      document.querySelector('.message').textContent = '💥 you lost the game !';
+      displayMessage('💥 you lost the game !');
       document.querySelector('body').style.backgroundColor = 'tomato';
       document.querySelector('.over-game').textContent='!Game Over!'
     }
-  }
+   }
+  //when guess is too low: 
+  // else if (guess < number) {
+  //   if (score > 1) {
+  //     document.querySelector('.message').textContent = '📉 TOO LOW !';
+  //     score--;
+  //     document.querySelector('.score').textContent = `${score}`;
+  //   } else {
+  //     document.querySelector('.message').textContent = '💥 you lost the game !';
+  //     document.querySelector('body').style.backgroundColor = 'tomato';
+  //     document.querySelector('.over-game').textContent='!Game Over!'
+  //   }
+  // }
   //when guess is too high:
-  else if (guess > number) {
-    if (score > 1) {
-      document.querySelector('.message').textContent = '📈 TOO HIGH !';
-      score--;
-      document.querySelector('.score').textContent = `${score}`;
-    } else {
-      document.querySelector('.message').textContent = '💥 you lost the game !';
-      document.querySelector('body').style.backgroundColor = 'tomato';
-      document.querySelector('.over-game').textContent='!Game Over!'
-    }
-  }
+  // else if (guess > number) {
+  //   if (score > 1) {
+  //     document.querySelector('.message').textContent = '📈 TOO HIGH !';
+  //     score--;
+  //     document.querySelector('.score').textContent = `${score}`;
+  //   } else {
+  //     document.querySelector('.message').textContent = '💥 you lost the game !';
+  //     document.querySelector('body').style.backgroundColor = 'tomato';
+  //     document.querySelector('.over-game').textContent='!Game Over!'
+  //   }
+  // }
   // when player wins:
   else {
-    document.querySelector('.message').textContent = '🎉correct number';
+    displayMessage('🎉 correct Number');
     document.querySelector('body').style.backgroundColor = 'green';
     document.querySelector('.number').textContent = number;
     // document.querySelector('.number').style.fontSize ='8em';
@@ -63,7 +80,7 @@ document.querySelector('.check').addEventListener('click', function () {
 
 document.querySelector('.again').addEventListener('click', function () {
   document.querySelector('body').style.backgroundColor = '#222';
-  document.querySelector('.message').textContent = 'Start guessing...';
+  displayMessage('Start guessing...');
   document.querySelector('.guess').value = '';
   score = 20;
   document.querySelector('.over-game').textContent='Guess My Number!'
